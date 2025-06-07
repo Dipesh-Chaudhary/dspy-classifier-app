@@ -53,11 +53,23 @@ class FeedbackManager:
             return base_program
 
         logger.info(f"Starting feedback-driven optimization with {self.get_feedback_count()} examples.")
+    # This is the model that is already configured in dspy.settings.
+    student_model = dspy.settings.lm
+    logger.info(f"Student model (task_model): {student_model.model}")
+
+    # We will use the powerful Llama3 70B model from Groq for this.
+    try:
+        teacher_model = dspy.Groq(model='llama3-70b-8192', api_key=student_model.api_key)
+        logger.info(f"Teacher model (prompt_model): {teacher_model.model}")
+    except Exception as e:
+        logger.warning(f"Could not initialize teacher model. Falling back to student model. Error: {e}")
+        teacher_model = student_model
 
         optimizer = MIPROv2(
             metric=custom_metric,
-            prompt_model=dspy.settings.lm,
-            task_model=dspy.settings.lm,
+            prompt_model=teacher_model,
+            task_model=student_model,
+            auto=None,
             num_candidates=4,  # Fewer candidates for faster feedback loop
             max_bootstrapped_demos=max_demos,
             max_labeled_demos=max_demos,
