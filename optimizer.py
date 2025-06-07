@@ -32,7 +32,7 @@ def run_mipro_optimization(
 
     # We will use the powerful Llama3 70B model from Groq for this.
     try:
-        teacher_model = dspy.Groq(model='llama3-70b-8192', api_key=student_model.api_key)
+        teacher_model = dspy.LM(model='groq/llama3-70b-8192', api_key=student_model.api_key)
         logger.info(f"Teacher model (prompt_model): {teacher_model.model}")
     except Exception as e:
         logger.warning(f"Could not initialize teacher model. Falling back to student model. Error: {e}")
