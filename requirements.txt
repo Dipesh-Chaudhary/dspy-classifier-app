@@ -5,5 +5,4 @@ tenacity
 numpy
 tqdm
 datasets
-difflib
 mlflow
