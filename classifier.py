@@ -26,7 +26,7 @@ class Classifier(dspy.Module):
         self.prog = dspy.ChainOfThought(f"text -> label: Literal{classes}")
 
     def forward(self, text):
-        return self.prog(text=text)
+        return self.prog(text=text, config=dict(cache=False))
 
 def create_datasets(num_train=500, num_dev=200, num_test=200):
     """Creates and splits the Banking77 dataset for training, development, and testing."""
@@ -59,3 +59,17 @@ def create_datasets(num_train=500, num_dev=200, num_test=200):
 def custom_metric(gold: dspy.Example, pred: dspy.Prediction, trace=None) -> float:
     """A custom metric to evaluate classification accuracy."""
     return float(gold.label == pred.label)
+
+
+
+
+
+
+# # Add this to the end of classifier.py and explicitly run only this file to test
+# if __name__ == '__main__':
+#     from utils import initialize_lm
+#     lm = initialize_lm()
+#     classes = load_banking_classes()
+#     classifier = Classifier(classes=classes)
+#     prediction = classifier(text="My card got stuck")
+#     print(prediction)
