@@ -1,0 +1,9 @@
+dspy-ai
+streamlit
+python-dotenv
+tenacity
+numpy
+tqdm
+datasets
+difflib
+mlflow
