@@ -71,6 +71,7 @@ class FeedbackManager:
             metric=custom_metric,
             prompt_model=student_model,
             task_model=teacher_model,
+            auto=None,
             num_candidates=4,  # Fewer candidates for faster feedback loop
             max_bootstrapped_demos=max_demos,
             max_labeled_demos=max_demos,
