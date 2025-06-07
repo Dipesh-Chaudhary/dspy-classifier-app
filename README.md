@@ -111,7 +111,7 @@ This tab lets you look under the hood of your DSPy programs.
 *   **View Single Prompt**: Select any program to see its internal instruction prompt.
 *   **Compare Prompts**: Select two different programs (e.g., `base_program` and an `optimized_` version) to see a side-by-side and a "diff" view, highlighting exactly what the optimizer changed.
 
-##💡 DSPy Concepts Illustrated
+## 💡 DSPy Concepts Illustrated
 
 This project is a practical guide to several core `dspy` concepts:
 
