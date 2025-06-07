@@ -6,6 +6,9 @@ from dspy.teleprompt import MIPROv2
 from classifier import custom_metric
 import logging
 
+from dotenv import load_dotenv
+
+
 logger = logging.getLogger("dspy_app")
 
 class FeedbackManager:
@@ -61,7 +64,7 @@ class FeedbackManager:
 
         # We will use the powerful Llama3 70B model from Groq for this.
         try:
-            teacher_model = dspy.LM(model='groq/llama3-70b-8192', api_key=student_model.api_key)
+            teacher_model = dspy.LM(model='groq/llama3-70b-8192', api_key=os.getenv("GROQ_API_KEY"))
             logger.info(f"Teacher model (prompt_model): {teacher_model.model}")
         except Exception as e:
             logger.warning(f"Could not initialize teacher model. Falling back to student model. Error: {e}")
@@ -82,6 +85,8 @@ class FeedbackManager:
         optimized_program = optimizer.compile(
             student=base_program,
             trainset=self.feedback_examples,
+            minibatch = False,
+            minibatch_size=1,
             valset=self.feedback_examples,
             num_trials=num_trials,
         )
