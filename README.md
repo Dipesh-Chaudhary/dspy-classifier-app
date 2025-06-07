@@ -154,5 +154,20 @@ Given the fields `text`, produce the fields `label`.
 The notebook proves that `dspy` isn't magic; it's a compiler that transforms a simple program into a sophisticated, context-aware, and high-performing one based on data.
 
 ---
-*(The final DSPy Concepts section can remain as is)*
+
+## 💡 DSPy Concepts Illustrated
+
+This project is a practical, hands-on guide to several core `dspy` concepts. By running the app and the notebook, you can see these powerful ideas in action:
+
+*   **Signatures (`Signature`):** The `text -> label` structure in our `ChainOfThought` module implicitly defines a signature. It's a declarative specification of the task, separating the "what" (the transformation we want) from the "how" (the prompt used to achieve it).
+
+*   **Modules (`dspy.Module`):** The `Classifier` class is a custom module. This object-oriented approach makes our AI logic reusable, composable, and stateful. We can save and load its learned parameters (the optimized prompt) just like a traditional PyTorch model.
+
+*   **Optimizers (Teleprompters):** We use `MIPROv2` as a `teleprompter`. This is the most powerful idea in `dspy`. The optimizer treats prompt engineering not as a manual art but as a formal optimization problem. It programmatically searches the vast space of possible instructions and few-shot examples to find a high-performing prompt that maximizes our `custom_metric` on our data.
+
+*   **The Teacher-Student Architecture:** In our `optimizer.py`, we use a more powerful model (`llama3-70b`) as the `prompt_model` (the "teacher") to generate creative and effective prompts. We then use a faster, more economical model (`llama3-8b`) as the `task_model` (the "student") to execute those prompts. This gives us the best of both worlds: high-quality reasoning during development and high-speed performance in production.
+
+*   **Data-Centric AI Development:** This entire project embodies a data-centric philosophy. Instead of endlessly tweaking a prompt by hand, we improve the system by providing it with better data—either a larger, more diverse training set or, more powerfully, a small set of targeted examples from user feedback. The system then adapts itself to the new data automatically.
+
+By combining these concepts, we build a system that is not just powerful, but also **principled, modular, and self-improving.**
 ```
