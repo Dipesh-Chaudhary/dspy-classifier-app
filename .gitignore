@@ -12,3 +12,11 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+
+# feedback files
+
+feedback/
+
+# programs files
+
+programs
